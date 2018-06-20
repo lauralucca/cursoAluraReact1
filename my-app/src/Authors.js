@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import CustomInput from './components/CustomInput.js';
-import CustomButton from './components/CustomButton.js';
+import CustomInput from './components/CustomInput';
+import CustomButton from './components/CustomButton';
 import PubSub from 'pubsub-js';
+import ErrorHandler from './ErrorHandler';
 
 class AuthorsForm extends Component {
     constructor() {
@@ -25,10 +26,16 @@ class AuthorsForm extends Component {
             data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
             success: function(novaLista){
                 PubSub.publish('atualiza-lista-autores', novaLista);
-            },
-            erro:function(resposta){
-            console.log("erro");
-            }              
+                this.setState({nome:'',email:'',senha:''});
+            }.bind(this),
+            error: function(resposta){
+                if(resposta.status === 400) {
+                    new ErrorHandler().publicaErros(resposta.responseJSON);
+                };
+            } ,
+            beforeSend: function(){
+                PubSub.publish("limpa-erros", {});
+            }             
         });
     }
 

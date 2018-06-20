@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-import AuthorsBox from './Authors.js'
+import AuthorsBox from './Authors'
 
 class App extends Component {
 
