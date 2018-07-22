@@ -55,16 +55,20 @@ class BooksForm extends Component {
     render() {
         return (
             <form className="pure-form pure-form-aligned" onSubmit={this.booksFormSubmit}>
-                <select value={ this.state.authorsId } name="authorsId" onChange={ this.setAuthorId }>
-                    <option value="">Selecione</option>
-                    { 
-                        this.props.authors.map(function(authors) {
-                        return <option key={ authors.id } value={ authors.id }>
-                                    { authors.nome }
-                                </option>;
-                        })
-                    }
-                </select>
+                <div className="pure-control-group">
+                    <label htmlFor={this.props.id}>Autor</label>
+                    <select value={ this.state.authorsId } name="authorsId" onChange={ this.setAuthorId }>
+                        <option value="">Selecione</option>
+                        { 
+                            this.props.authors.map(function(authors) {
+                            return <option key={ authors.id } value={ authors.id }>
+                                        { authors.nome }
+                                    </option>;
+                            })
+                        }
+                    </select>
+                    <span className="error">{this.state.msgErro}</span>
+                </div>
                 <CustomInput id="title" type="text" name="title" label="Título" value={this.state.titulo} onChange={this.setTitle} />
                 <CustomInput id="price" type="text" name="price" label="Preço" value={this.state.preco} onChange={this.setPrice} />
                 <CustomButton label="" type="submit" text="Gravar" />
