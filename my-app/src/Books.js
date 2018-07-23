@@ -10,21 +10,10 @@ class BooksForm extends Component {
         super();
         this.state = { titulo: '', preco: '', autorId: '' };
         this.booksFormSubmit = this.booksFormSubmit.bind(this);
-        this.setTitle = this.setTitle.bind(this);
-        this.setPrice = this.setPrice.bind(this);
-        this.setAuthorId = this.setAuthorId.bind(this);
     }
-
-    setTitle(event) {
-        this.setState({ titulo: event.target.value });
-    }
-
-    setPrice(event) {
-        this.setState({ preco: event.target.value });
-    }
-
-    setAuthorId(event) {
-        this.setState({ autorId: event.target.value });
+    
+    setValue(nomeInput, event) {
+        this.setState({[nomeInput]: event.target.value});
     }
 
     booksFormSubmit(event) {
@@ -57,7 +46,7 @@ class BooksForm extends Component {
             <form className="pure-form pure-form-aligned" onSubmit={this.booksFormSubmit}>
                 <div className="pure-control-group">
                     <label htmlFor="autorId">Autor</label>
-                    <select value={ this.state.autorId } name="authorsId" onChange={ this.setAuthorId }>
+                    <select value={ this.state.autorId } name="autorId" onChange={ this.setValue.bind(this, 'autorId') }>
                         <option value="">Selecione</option>
                         { 
                             this.props.authors.map(function(authors) {
@@ -69,8 +58,8 @@ class BooksForm extends Component {
                     </select>
                     <span className="error">{this.state.msgErro}</span>
                 </div>
-                <CustomInput id="title" type="text" name="title" label="Título" value={this.state.titulo} onChange={this.setTitle} />
-                <CustomInput id="price" type="text" name="price" label="Preço" value={this.state.preco} onChange={this.setPrice} />
+                <CustomInput id="title" type="text" name="title" label="Título" value={this.state.titulo} onChange={this.setValue.bind(this, 'titulo')} />
+                <CustomInput id="price" type="text" name="price" label="Preço" value={this.state.preco} onChange={this.setValue.bind(this, 'preco')} />
                 <CustomButton label="" type="submit" text="Gravar" />
             </form>
         )
