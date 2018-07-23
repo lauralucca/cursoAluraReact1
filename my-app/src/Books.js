@@ -56,8 +56,8 @@ class BooksForm extends Component {
         return (
             <form className="pure-form pure-form-aligned" onSubmit={this.booksFormSubmit}>
                 <div className="pure-control-group">
-                    <label htmlFor={this.props.id}>Autor</label>
-                    <select value={ this.state.authorsId } name="authorsId" onChange={ this.setAuthorId }>
+                    <label htmlFor="autorId">Autor</label>
+                    <select value={ this.state.autorId } name="authorsId" onChange={ this.setAuthorId }>
                         <option value="">Selecione</option>
                         { 
                             this.props.authors.map(function(authors) {
